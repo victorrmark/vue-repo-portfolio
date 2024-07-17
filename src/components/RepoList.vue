@@ -45,7 +45,6 @@ function toggleModal() {
   showModal.value = !showModal.value
 }
 
-
 watch(currentPage, (newValue) => {
   window.scrollTo(0, 0)
 })
@@ -53,18 +52,17 @@ watch(currentPage, (newValue) => {
 
 <template>
   <div class="container" v-if="data">
-
     <div class="head">
       <input type="text" v-model="searchTerm" placeholder="Find a repository..." />
       <button @click="toggleModal">New Repo</button>
 
       <CreateRepo v-if="showModal" @toggleModal="toggleModal" />
     </div>
-  
+
     <p v-if="searchResult.length === 0" class="search">
       0 result for repositories matching <b>{{ searchTerm }}</b>
     </p>
-  
+
     <div class="main">
       <div v-for="repo in paginatedRepos" :key="repo.id" class="box">
         <div class="repo-name">
@@ -73,44 +71,36 @@ watch(currentPage, (newValue) => {
           </RouterLink>
           <span>{{ repo.visibility }}</span>
         </div>
-      
+
         <p>{{ repo.description }}</p>
-      
+
         <div class="info">
           <p class="language" v-if="repo.language">
             <span v-if="repo.language === 'HTML'" :style="{ background: 'red' }"></span>
-            <span v-if="repo.language === 'CSS'" :style="{ background: 'purple' }"></span>
-            <span v-if="repo.language === 'JavaScript'" :style="{ background: 'yellow' }"></span>
-              {{ repo.language }}
+            <span v-else-if="repo.language === 'CSS'" :style="{ background: 'purple' }"></span>
+            <span
+              v-else-if="repo.language === 'JavaScript'"
+              :style="{ background: 'yellow' }"
+            ></span>
+            <span v-else :style="{ background: 'green' }"></span>
+            {{ repo.language }}
           </p>
           <span>Updated on {{ formatDate(repo.updated_at) }}</span>
         </div>
-      
       </div>
     </div>
-    <Paginate
-      :currentPage="currentPage"
-      :totalPages="totalPages"
-      @updatePage="updatePage"
-    />
+    <Paginate :currentPage="currentPage" :totalPages="totalPages" @updatePage="updatePage" />
   </div>
 
   <div v-else>
     <div
-      class="skeleton skeleton-line" 
-      style="
-        --lines: 4;
-        --c-w: 100%;
-        --l-gap: 30px;
-        --l-h: 90px
-      "
+      class="skeleton skeleton-line"
+      style="--lines: 4; --c-w: 100%; --l-gap: 30px; --l-h: 90px"
     ></div>
-    
   </div>
 </template>
 
 <style scoped>
-
 .head {
   display: flex;
   flex-direction: column-reverse;
@@ -153,11 +143,10 @@ input:focus {
   font-size: 1.6rem;
 }
 
-.search{
+.search {
   border-top: 2px solid #ccc;
   margin-top: 20px;
   padding-top: 20px;
-
 }
 
 .box {
@@ -165,13 +154,18 @@ input:focus {
   border-top: 1px solid #ccc;
 }
 
-.box:first-of-type{
-    border-top: none;
+.box:first-of-type {
+  border-top: none;
 }
 
-.repo-name{
+.repo-name {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.repo-name + p{
+  margin-top: 10px;
 }
 
 .repo-name a {
@@ -196,7 +190,6 @@ input:focus {
   margin-right: 5px;
 }
 
-
 .info {
   margin-top: 20px;
   display: flex;
@@ -212,5 +205,4 @@ input:focus {
     align-items: center;
   }
 }
-
 </style>
