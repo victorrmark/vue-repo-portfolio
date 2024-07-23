@@ -1,6 +1,6 @@
 <template>
   <div v-if="data" class="header">
-    <div class="bio">
+    <div class="profile">
       <img v-if="data.avatar_url" alt="github avatar" class="avatar" :src="data.avatar_url" />
       <img v-else alt="github avatar" class="avatar" src="../assets/image.jpg" />
       <div>
@@ -10,9 +10,14 @@
         </p>
       </div>
     </div>
-    <div class="bio-details">
+
+    <div class="bio">
+      <p>{{ data.bio }}</p>
+    </div>
+
+    <div class="profile-details">
       <a class="btn" :href="data.html_url" target="_blank">View Profile</a>
-      <div class="bio-info">
+      <div class="profile-info">
         <p><a target="_blank" href="mailto:innovimark@gmail.com">innovimark@gmail.com</a></p>
         <p>
           <a target="_blank" href="https://twitter.com/victorrmark">@{{ data.twitter_username }}</a>
@@ -50,7 +55,7 @@ getData()
   padding-bottom: 50px;
 }
 
-.bio {
+.profile {
   font-size: 1.6rem;
   flex-wrap: wrap;
   display: flex;
@@ -58,6 +63,10 @@ getData()
   margin-bottom: 30px;
   align-items: center;
   width: 100%;
+}
+
+.bio{
+  margin-bottom: 20px;
 }
 
 .avatar {
@@ -77,13 +86,13 @@ getData()
   font-size: 1.8rem;
 }
 
-.bio-details {
+.profile-details {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.bio-details > a {
+.profile-details > a {
   display: inline-block;
   width: 100%;
   margin-bottom: 15px;
@@ -94,24 +103,24 @@ getData()
   border-radius: 5px;
 }
 
-.bio-details > a:hover {
+.profile-details > a:hover {
   background: #e9e8e8;
 }
 
-.bio-info {
+.profile-info {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.bio-info a:hover {
+.profile-info a:hover {
   cursor: pointer;
   text-decoration: underline;
   color: blue;
 }
 
 @media (min-width: 768px) {
-  .bio {
+  .profile {
     flex-direction: column;
     row-gap: 20px;
     align-items: flex-start;
@@ -124,12 +133,16 @@ getData()
     height: auto;
   }
 
-  .bio-info p:last-child {
+  .profile-info p:last-child {
     margin-top: 30px;
   }
 
-  .bio-details > a {
+  .profile-details > a {
     border-radius: 5px;
+    max-width: 300px;
+  }
+
+  .bio{
     max-width: 300px;
   }
 

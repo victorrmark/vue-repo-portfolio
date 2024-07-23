@@ -175,6 +175,10 @@ input:focus {
   margin-right: 10px;
 }
 
+.repo-name a:hover{
+  text-decoration: underline;
+}
+
 .repo-name span {
   border: 1px solid #ccc;
   border-radius: 15px;
